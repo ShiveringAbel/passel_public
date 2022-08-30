@@ -39,16 +39,16 @@ mode = 1
 # TODO 
 # sendall is set to 0 by default, change to 1 if you want
 # the bot to send all pinned messages to the pins channel
-sendall = 0
+sendall = 1
 
 # TODO 
 # replace the 0 with the pins channel ID for your sever
-pins_channel = 0
+pins_channel = 684911209132195858
 
 # TODO
 # add any black listed channel IDs as a list separated by a comma (,)
 # a good idea is to add admin channels to this
-blacklisted_channels = []
+blacklisted_channels = [649417414823510026, 649417488466968596, 649428137360228357, 649417005367296004, 649427670567747585, 649427770329530439, 649427821269352488]
 
 # discord embed colors
 EMBED_COLORS = [
@@ -146,11 +146,7 @@ async def on_guild_channel_pins_update(channel, last_pin):
                 text="sent in: " + last_pinned.channel.name + " - at: " + str(last_pinned.created_at))
             pinEmbed.set_author(name='Sent by ' + last_pinned.author.name)
             await channel.guild.get_channel(int(pins_channel)).send(embed=pinEmbed)
-            
-            # remove this message if you do not want the bot to send a message when you pin a message
-            await last_pinned.channel.send(
-                "See pinned message in " + channel.guild.get_channel(int(pins_channel)).mention)
-            return
+           
 
         # if guild mode is one does the process following mode 1
         if mode == 1:
@@ -174,10 +170,7 @@ async def on_guild_channel_pins_update(channel, last_pin):
                 pinEmbed.set_author(name='Sent by ' + last_pinned.author.name)
                 await channel.guild.get_channel(int(pins_channel)).send(embed=pinEmbed)
 
-                # remove this message if you do not want the bot to send a message when you pin a message
-                await last_pinned.channel.send(
-                    "See pinned message in " + channel.guild.get_channel(int(pins_channel)).mention)
-                await last_pinned.unpin()
+            
 
         # if guild mode is two follows the process for mode 2
         if mode == 2:
@@ -200,16 +193,14 @@ async def on_guild_channel_pins_update(channel, last_pin):
                 pinEmbed.set_author(name='Sent by ' + last_pinned.author.name)
                 await last_pinned.guild.get_channel(int(pins_channel)).send(embed=pinEmbed)
 
-                # remove this message if you do not want the bot to send a message when you pin a message
-                await last_pinned.channel.send(
-                    "See oldest pinned message in " + channel.guild.get_channel(int(pins_channel)).mention)
-                await last_pinned.unpin()
+              
     except:
         print("unpinned a message, not useful for bot so does nothing")
 
 
 # TODO Replace TOKEN with the token from discord developer portal 
-client.run('TOKEN')
+#client.run('TOKEN')
 
 # TODO If using GitHub diff deployment on HeroKu comment out the above line with '#' and remove '#' from the line below to uncomment it. 
-#client.run(os.environ.get('TOKEN'))
+import os
+client.run(os.environ.get('TOKEN'))
